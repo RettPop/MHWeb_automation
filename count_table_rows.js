@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         TR counter
 // @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  try to take over the world!
-// @author       You
-// @match        https://mhweb.ericsson.se/mhweb/faces/dashboard/MHWeb.xhtml
+// @version      0.2
+// @description  Put lines counter on the each window table with header
+// @author       Rett Pop
+// @match        https://mhweb.ericsson.se/
 // @grant        none
 // @require http://code.jquery.com/jquery-latest.js
 // ==/UserScript==
@@ -12,25 +12,29 @@
 $(document).ready((function() {
     //'use strict';
 
-    // Your code here...
-    var framez = document.getElementsByTagName("iframe")
-//console.log(framez.length);
-for (var idx = 0; idx < framez.length; idx++)
-{
-    //console.log(idx);
-    var col = framez[idx].contentWindow.document.getElementById("frm_srt_dt_column1Sort");
-    var tableName = "frm_srt_dt:tb";
-    if(col == null)
+    processDoc(document);
+    var framez = document.getElementsByTagName("iframe");
+    for (var idx = 0; idx < framez.length; idx++)
     {
-        col = framez[idx].contentWindow.document.getElementById("frm_wl_sortId");
-        tableName = "frm_wl:tb"
+        processDoc(framez[idx].contentWindow.document);
     }
 
-	if ( col != null )
+    function processDoc(doc)
     {
-    	var text = col.text
-    	col.text = text + ":" + framez[idx].contentWindow.document.getElementById(tableName).getElementsByTagName("tr").length;
-    	//console.log(text);
+        var tables = doc.getElementsByTagName("table");
+        for (let hdrIdx = 0; hdrIdx < tables.length; hdrIdx ++)
+        {
+            const table = tables[hdrIdx];
+            // running through table headers
+            if(null == table.tHead) {
+                // the table has no headers. skip
+                continue;
+            }
+
+            // checking the first header's row for having "Hot TR" cell
+            var cellText = table.tHead.rows[0].cells[0].innerText;
+            table.tHead.rows[0].cells[0].innerText = cellText + " (" + table.tBodies[0].rows.length + ")";
+            // console.log(cellText);
+        }
     }
-}
 }));
