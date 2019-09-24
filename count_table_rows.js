@@ -4,7 +4,7 @@
 // @version      0.2
 // @description  Put lines counter on the each window table with header
 // @author       Rett Pop
-// @match        https://mhweb.ericsson.se/
+// @match        https://mhweb.ericsson.se/*
 // @grant        none
 // @require http://code.jquery.com/jquery-latest.js
 // ==/UserScript==
