@@ -4,17 +4,17 @@
 // @version      0.1
 // @description  try to take over the world!
 // @author       You
-// @match        https://mhweb.ericsson.se/mhweb/faces/dashboard/MHWeb.xhtml
+// @match        https://mhweb.ericsson.se/*
 // @grant        none
 // ==/UserScript==
 
 (function() {
     'use strict';
 
-    var framez = document.getElementsByTagName("iframe");
-    for (var idx = 0; idx < framez.length; idx++)
+    function handleDoc(doc)
     {
-        var tables = framez[idx].contentWindow.document.getElementsByTagName("table");
+        var tables = document.getElementsByTagName("table");
+        console.log("have " + tables.length + " tables");
         for (let hdrIdx = 0; hdrIdx < tables.length; hdrIdx ++)
         {
             var hotTrCol = -1;
@@ -57,5 +57,13 @@
 
             hotTrHdrCell.innerText = "Hot TR (" + hotTRsCnt + ")";
         }
+    }
+
+    handleDoc(document);
+
+    var framez = document.getElementsByTagName("iframe");
+    for (var idx = 0; idx < framez.length; idx++)
+    {
+        handleDoc(framez[idx].contentWindow.document);
     }
 })();
