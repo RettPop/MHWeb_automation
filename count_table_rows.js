@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TR counter
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.3
 // @description  Put lines counter on the each window table with header
 // @author       Rett Pop
 // @match        https://mhweb.ericsson.se/*
@@ -32,8 +32,8 @@ $(document).ready((function() {
             }
 
             // checking the first header's row for having "Hot TR" cell
-            var cellText = table.tHead.rows[0].cells[0].innerText;
-            table.tHead.rows[0].cells[0].innerText = cellText + " (" + table.tBodies[0].rows.length + ")";
+            var cellText = table.tHead.rows[table.tHead.rows.length-1].cells[0].innerText;
+            table.tHead.rows[table.tHead.rows.length-1].cells[0].innerText = cellText + " (" + table.tBodies[0].rows.length + ")";
             // console.log(cellText);
         }
     }
