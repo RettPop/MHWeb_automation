@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         Highligt hot TRs
 // @namespace    http://tampermonkey.net/
-// @version      0.4
+// @version      0.5
 // @description  highlight MHWeb hot TRs
 // @author       Rett Pop
 // @match        https://mhweb.ericsson.se/*
-// @exclude      https://mhweb.ericsson.se/TREditWeb/*
+// @exclude      https://mhweb.ericsson.se/TREditWeb/faces/oo/object.xhtml*
 // @grant        none
 // ==/UserScript==
 
