@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TR counter
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.4
 // @description  Put lines counter on the each window table with header
 // @author       Rett Pop
 // @match        https://mhweb.ericsson.se/*
