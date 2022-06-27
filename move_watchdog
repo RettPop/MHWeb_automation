@@ -1,0 +1,39 @@
+// ==UserScript==
+// @name         Move watchdog
+// @namespace    http://tampermonkey.net/
+// @version      0.2
+// @description  Move annoying watchdog floating window under the Discussions section of the left pane
+// @author       You
+// @match        https://mhweb.ericsson.se/TREditWeb/faces/oo/object.xhtml?eriref=*
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=ericsson.se
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // Your code here...
+    function handleDoc(doc)
+    {
+        var discussHeader = doc.getElementById("frm_diSwPan");
+        var watrchdogEnv = doc.getElementById("frm_watchDogEnvelope");
+        console.log("discussHeader: " + discussHeader + " watrchdogHeader: " + watrchdogEnv);
+        if(null != discussHeader && null != watrchdogEnv)
+        {
+            console.log("Inserting nodes");
+            discussHeader.parentNode.insertBefore(watrchdogEnv, discussHeader.nextSibling);
+            doc.getElementById("frm_watchDog_watchDog_container").setAttribute("style","width:160px;position:relative;margin-top:2px;margin-left:5px;");
+            doc.getElementById("frm_watchDog_watchDog_shadow").setAttribute("style","width:160px;position:relative;margin-top:2px;margin-left:5px;");
+            doc.getElementById("frm_watchDog_watchDog_content").setAttribute("style","position:relative;margin-top:2px");
+            doc.getElementById("frm_watchDog_watchDog_content_scroller").setAttribute("style","width:160px;position:relative;margin-top:2px");
+        }
+    }
+
+    handleDoc(document);
+
+    var framez = document.getElementsByTagName("iframe");
+    for (var idx = 0; idx < framez.length; idx++)
+    {
+        handleDoc(framez[idx].contentWindow.document);
+    }
+})();
